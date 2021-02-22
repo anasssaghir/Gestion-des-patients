@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	layout:decorator="template1">
+<head>
+<meta charset="UTF-8">
+<title>Page patients</title>
+</head>
+<body>
+	<div layout:fragment="pageContent">
+		<div class="container mt-5">
+			<div class="col-md-7">
+				<div class="card">
+					<div class="card-header" th:if="${mode=='new'}">
+						<h2 style="color: green;">Ajouter Patient</h2>
+					</div>
+						<div class="card-header" th:if="${mode=='edit'}">
+						<h2 style="color: green;">Modifier Patient</h2>
+					</div>
+					<div class="card-body">
+						<form th:action="@{savePatient}" method="post">
+							<div class="form-group">
+								<label class="control-label">ID:</label> 
+								<label class="control-label" th:text="${patient.id}"></label> 
+								<input type="hidden"
+									name="id" class="form-control col-md-6"
+									th:value="${patient.id}"><br> 
+							</div>
+							<div class="form-group">
+								<label class="control-label">Nom:</label> <input type="text"
+									name="nom" class="form-control col-md-6"
+									th:value="${patient.nom}"><br> <span
+									th:errors=${patient.nom} class="alert alert-danger"></span>
+
+							</div>
+							<div class="form-group">
+								<label class="control-label">Score:</label> <input
+									class="form-control col-md-6 " type="text" name="score"
+									th:value="${patient.score}"><br> <span
+									th:errors=${patient.score} class="alert alert-danger"></span>
+
+							</div>
+							<div class="form-group">
+								<label class="control-label">Date Naissance:</label> <input
+									type="date" name="dateNaissance" class="form-control col-md-6"
+									th:value="${patient.dateNaissance}"> <span
+									th:errors=${patient.dateNaissance} class="alert alert-danger"></span>
+
+							</div>
+							<div class="form-group">
+								<label class="control-label">Malade:</label> <input
+									type="checkbox" name="malade" th:checked="${patient.malade}">
+								<span th:errors=${patient.malade} class="alert alert-danger"></span>
+
+							</div>
+							<button class="btn btn-success" type="submit">Save</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
